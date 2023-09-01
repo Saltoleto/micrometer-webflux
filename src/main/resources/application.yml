@@ -1,0 +1,34 @@
+server:
+  port: 8080 # Customize the port as needed
+
+spring:
+  application:
+    name: pet-store-webflux # Replace with your application name
+
+resilience4j:
+  ratelimiter:
+    instances:
+      SaltoletoRateLimiter: # Updated rate limiter name
+        limitForPeriod: 3
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1m
+
+logging:
+  level:
+    root: INFO # Adjust logging levels as needed
+
+# BlockHound configuration
+blockhound:
+  integration:
+    reactor: true # Enable BlockHound integration with Reactor
+
+# Micrometer configuration (if you're using it)
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true # Enable Prometheus metrics export
+  endpoints:
+    web:
+      exposure:
+        include: '*'
