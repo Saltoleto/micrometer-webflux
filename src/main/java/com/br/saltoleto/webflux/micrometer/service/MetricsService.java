@@ -16,6 +16,9 @@ public class MetricsService {
     public MetricsService(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
     }
+        public Timer.Sample startTimer() {
+        return Timer.start(meterRegistry);
+    }
 
     public void recordTimerMetric(String metricName, long durationInMillis, Map<String, String> tags) {
         List<Tag> micrometerTags = tags.entrySet().stream()
