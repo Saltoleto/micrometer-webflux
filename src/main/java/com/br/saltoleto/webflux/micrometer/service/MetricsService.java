@@ -20,6 +20,15 @@ public class MetricsService {
         return Timer.start(meterRegistry);
     }
 
+        public void stopAndRecordTimer(Timer.Sample sample, String metricName, List<Tag> tags) {
+        Timer timer = Timer.builder(metricName)
+                .description("Tempo gasto em alguma operação")
+                .tags(tags)
+                .register(meterRegistry);
+
+        sample.stop(timer);
+    }
+
     public void recordTimerMetric(String metricName, long durationInMillis, Map<String, String> tags) {
         List<Tag> micrometerTags = tags.entrySet().stream()
                 .map(entry -> Tag.of(entry.getKey(), entry.getValue()))
